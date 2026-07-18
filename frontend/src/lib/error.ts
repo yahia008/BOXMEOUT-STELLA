@@ -120,7 +120,7 @@ export function sanitizeObject(obj: any): any {
 export function logError(error: unknown, context?: Record<string, any>): void {
   // Determine if it is a user error or a system/bug error
   let category = ErrorCategory.BUG;
-  let tags: Record<string, string> = { error_type: 'bug' };
+  const tags: Record<string, string> = { error_type: 'bug' };
 
   if (error instanceof AppError) {
     category = error.category;
