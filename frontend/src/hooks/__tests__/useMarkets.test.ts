@@ -111,7 +111,7 @@ describe('useMarkets', () => {
     });
 
     it('should clear previous data on error', async () => {
-      const { result, rerender } = renderHook(
+      const { result } = renderHook(
         ({ filters }) => useMarkets(filters),
         { initialProps: { filters: undefined } }
       );
