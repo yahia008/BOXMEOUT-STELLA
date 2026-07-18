@@ -490,7 +490,9 @@ describe('useMarket', () => {
       expect(market1Calls).toBe(market1CallsAtChange);
 
       // Market 2 should continue polling
-      expect(market2Calls).toBeGreaterThan(1);
+      await waitFor(() => {
+        expect(market2Calls).toBeGreaterThan(1);
+      });
     });
   });
 
