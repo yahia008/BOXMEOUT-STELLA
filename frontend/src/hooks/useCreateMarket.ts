@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { scValToNative, xdr } from '@stellar/stellar-sdk';
 import type { TxStatus } from '../types';
 import type { CreateMarketParams } from '../services/wallet';
 import { createMarket as createMarketWallet, getConnectedAddress } from '../services/wallet';
@@ -11,17 +12,11 @@ export interface UseCreateMarketResult {
   error: string | null;
 }
 
-function xlmToStroops(xlm: number): bigint {
-  const [whole, frac = ''] = xlm.toString().split('.');
-  return BigInt(whole) * BigInt(10_000_000) + BigInt(frac.slice(0, 7).padEnd(7, '0'));
-}
-
 function parseMarketId(returnValueXdr: string): string {
   if (!returnValueXdr) throw new Error('No return value in transaction result');
   // Simple extraction of address from ScVal XDR
   // In production, use the SDK's scValToNative helper
   try {
-    const { scValToNative, xdr } = require('@stellar/stellar-sdk');
     const val = xdr.ScVal.fromXDR(returnValueXdr, 'base64');
     const native = scValToNative(val);
     if (typeof native === 'string') return native;

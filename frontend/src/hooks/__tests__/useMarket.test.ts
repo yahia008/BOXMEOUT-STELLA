@@ -64,7 +64,7 @@ describe('useMarket', () => {
       });
 
       expect(result.current.market).toBeNull();
-      expect(result.current.error?.message).toContain('not found');
+      expect(result.current.error?.message).toContain('Not found');
     });
 
     it('should keep isLoading = false when error occurs', async () => {
